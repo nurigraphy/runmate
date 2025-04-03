@@ -1,18 +1,13 @@
 
 from flask import Flask, request, jsonify
-import os
 import openai
+import os
 
 app = Flask(__name__)
 
-# OpenAI API 키 설정 (환경변수 또는 설정파일로 관리 권장)
-#openai.api_key = "YOUR_OPENAI_API_KEY"
+# OpenAI API 키 설정 (환경변수 사용)
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 
-@app.route("/", methods=["GET"])
-def root():
-    return "RunMate Flask 서버 작동 중입니다! /gpt 경로로 POST 요청을 보내주세요."
-    
 @app.route("/gpt", methods=["POST"])
 def gpt_response():
     user_input = request.json.get("userRequest", {}).get("utterance", "")
@@ -25,7 +20,7 @@ def gpt_response():
     러닝 코치:
     """
     response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",  # 또는 gpt-4 사용 가능
+        model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.7
     )
@@ -42,6 +37,10 @@ def gpt_response():
             }]
         }
     })
+
+@app.route("/", methods=["GET"])
+def root():
+    return "RunMate Flask 서버 작동 중입니다! /gpt 경로로 POST 요청을 보내주세요."
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
