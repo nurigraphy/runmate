@@ -7,6 +7,10 @@ app = Flask(__name__)
 # OpenAI API 키 설정 (환경변수 또는 설정파일로 관리 권장)
 openai.api_key = "YOUR_OPENAI_API_KEY"
 
+@app.route("/", methods=["GET"])
+def root():
+    return "RunMate Flask 서버 작동 중입니다! /gpt 경로로 POST 요청을 보내주세요."
+    
 @app.route("/gpt", methods=["POST"])
 def gpt_response():
     user_input = request.json.get("userRequest", {}).get("utterance", "")
