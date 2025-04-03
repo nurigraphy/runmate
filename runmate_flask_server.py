@@ -5,7 +5,8 @@ import openai
 app = Flask(__name__)
 
 # OpenAI API 키 설정 (환경변수 또는 설정파일로 관리 권장)
-openai.api_key = "YOUR_OPENAI_API_KEY"
+#openai.api_key = "YOUR_OPENAI_API_KEY"
+openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 @app.route("/", methods=["GET"])
 def root():
