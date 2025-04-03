@@ -5,7 +5,7 @@ import openai
 app = Flask(__name__)
 
 # 테스트용 GPT API 키
-openai.api_key = "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"
+openai.api_key = "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"
 
 @app.route("/gpt", methods=["POST"])
 def gpt_response():
